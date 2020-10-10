@@ -113,7 +113,7 @@ namespace BDO_Ditto
             ulong classId = BitConverter.ToUInt64(data, StaticData.ClassId.Offset);
             if (!StaticData.ClassIdLookup.TryGetValue(classId, out string className))
             {
-                className = "Unkown";
+                className = "Unknown";
                 MessageBox.Show(string.Format("Class ID: {0}, Name: {1}", classId, className), @"Class Unknown", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
             Debug.WriteLine("Class ID: {0}, Name: {1}", classId, className);
