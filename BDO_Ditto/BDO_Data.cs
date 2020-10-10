@@ -29,7 +29,7 @@ namespace BDO_Ditto
             { 9027954148991039522,      "Archer"        }, // 22F81F6377BC497D      7D 49 BC 77 63 1F F8 22
             { 1993106510572782253,      "Shai"          }, // 1BA8EFCFBA3582AD      AD 82 35 BA CF EF A8 1B
             { 172777620496739550,       "Guardian"      }, // 0265D45496D86CDE      DE 6C D8 96 54 D4 65 02
-            { 12445517493068544328,     "Hashashin"     }  // ACB75C388442B948      48 B9 42 84 38 5C B7 AC
+            { 13074637124134913639,     "Hashashin"     }  // B572713127324667      67 46 32 27 31 71 72 B5
         };
         #endregion
 
