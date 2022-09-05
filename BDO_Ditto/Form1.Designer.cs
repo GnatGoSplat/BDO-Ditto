@@ -118,7 +118,7 @@
             this.Cb_Voice.TabIndex = 9;
             this.Cb_Voice.Text = "Voice";
             this.Cb_Voice.UseVisualStyleBackColor = true;
-            this.Cb_Voice.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_Voice.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_StandbyExpression
             // 
@@ -129,7 +129,7 @@
             this.Cb_StandbyExpression.TabIndex = 8;
             this.Cb_StandbyExpression.Text = "Standby Expression";
             this.Cb_StandbyExpression.UseVisualStyleBackColor = true;
-            this.Cb_StandbyExpression.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_StandbyExpression.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_HairColors
             // 
@@ -140,7 +140,7 @@
             this.Cb_HairColors.TabIndex = 1;
             this.Cb_HairColors.Text = "Hair Color";
             this.Cb_HairColors.UseVisualStyleBackColor = true;
-            this.Cb_HairColors.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_HairColors.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_BodyShape
             // 
@@ -151,7 +151,7 @@
             this.Cb_BodyShape.TabIndex = 7;
             this.Cb_BodyShape.Text = "Body Shape";
             this.Cb_BodyShape.UseVisualStyleBackColor = true;
-            this.Cb_BodyShape.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_BodyShape.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_HairAndFace
             // 
@@ -163,7 +163,7 @@
             this.Cb_HairAndFace.Tag = "HairAndFace";
             this.Cb_HairAndFace.Text = "Hair and Face Type";
             this.Cb_HairAndFace.UseVisualStyleBackColor = true;
-            this.Cb_HairAndFace.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_HairAndFace.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_FaceShape
             // 
@@ -174,7 +174,7 @@
             this.Cb_FaceShape.TabIndex = 6;
             this.Cb_FaceShape.Text = "Face Shape";
             this.Cb_FaceShape.UseVisualStyleBackColor = true;
-            this.Cb_FaceShape.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_FaceShape.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_EyeMakeup
             // 
@@ -185,7 +185,7 @@
             this.Cb_EyeMakeup.TabIndex = 2;
             this.Cb_EyeMakeup.Text = "Eye Makeup";
             this.Cb_EyeMakeup.UseVisualStyleBackColor = true;
-            this.Cb_EyeMakeup.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_EyeMakeup.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_EyeLine
             // 
@@ -196,7 +196,7 @@
             this.Cb_EyeLine.TabIndex = 5;
             this.Cb_EyeLine.Text = "Eye Line";
             this.Cb_EyeLine.UseVisualStyleBackColor = true;
-            this.Cb_EyeLine.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_EyeLine.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_Eyes
             // 
@@ -207,7 +207,7 @@
             this.Cb_Eyes.TabIndex = 3;
             this.Cb_Eyes.Text = "Eyes";
             this.Cb_Eyes.UseVisualStyleBackColor = true;
-            this.Cb_Eyes.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_Eyes.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Cb_Skin
             // 
@@ -218,7 +218,7 @@
             this.Cb_Skin.TabIndex = 4;
             this.Cb_Skin.Text = "Skin";
             this.Cb_Skin.UseVisualStyleBackColor = true;
-            this.Cb_Skin.CheckedChanged += new System.EventHandler(this.ApperanceSectionsCheckedHandler);
+            this.Cb_Skin.CheckedChanged += new System.EventHandler(this.AppearanceSectionsCheckedHandler);
             // 
             // Gb_Target
             // 

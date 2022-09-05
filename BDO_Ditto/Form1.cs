@@ -9,7 +9,7 @@ namespace BDO_Ditto
 {
     public partial class MainForm : Form
     {
-        private readonly BdoAppearanceSwaper _apperanceSwaper = new BdoAppearanceSwaper();
+        private readonly BdoAppearanceSwapper _appearanceSwapper = new BdoAppearanceSwapper();
         private readonly Dictionary<string, BdoDataBlock> _sectionsToCopy = new Dictionary<string, BdoDataBlock>();
 
         public MainForm()
@@ -62,13 +62,13 @@ namespace BDO_Ditto
             {
                 Tb_SourcePath.Text = path;
 
-                if (_apperanceSwaper.LoadSource(path))
+                if (_appearanceSwapper.LoadSource(path))
                 {
-                    Gb_Source.Text = string.Format("Source Template ({0})", _apperanceSwaper.GetSourceClassStr());
+                    Gb_Source.Text = string.Format("Source Template ({0})", _appearanceSwapper.GetSourceClassStr());
                 }
             }
 
-            Btt_CopySections.Enabled = _apperanceSwaper.IsSourceAndTragetApperanceLoaded();
+            Btt_CopySections.Enabled = _appearanceSwapper.IsSourceAndTragetAppearanceLoaded();
         }
 
         private void Btt_TargetBrowse_Click(object sender, EventArgs e)
@@ -79,13 +79,13 @@ namespace BDO_Ditto
             {
                 Tb_TargetPath.Text = path;
 
-                if (_apperanceSwaper.LoadTarget(path))
+                if (_appearanceSwapper.LoadTarget(path))
                 {
-                    Gb_Target.Text = string.Format("Target Template ({0})", _apperanceSwaper.GetTargetClassStr());
+                    Gb_Target.Text = string.Format("Target Template ({0})", _appearanceSwapper.GetTargetClassStr());
                 }
             }
 
-            Btt_CopySections.Enabled = _apperanceSwaper.IsSourceAndTragetApperanceLoaded();
+            Btt_CopySections.Enabled = _appearanceSwapper.IsSourceAndTragetAppearanceLoaded();
         }
 
         // Open the help web page
@@ -98,11 +98,11 @@ namespace BDO_Ditto
         {
             List<BdoDataBlock> setionsToCopy = new List<BdoDataBlock>(_sectionsToCopy.Values);
             PrintSectionsToCopy();
-            _apperanceSwaper.CopySectionsToTarget(setionsToCopy);
+            _appearanceSwapper.CopySectionsToTarget(setionsToCopy);
         }
 
         // Global handler for selecting what sections to copy
-        private void ApperanceSectionsCheckedHandler(object sender, EventArgs e)
+        private void AppearanceSectionsCheckedHandler(object sender, EventArgs e)
         {
             if (sender.GetType() == typeof(CheckBox))
             {
@@ -119,20 +119,20 @@ namespace BDO_Ditto
                     }
                     else if (cb.Checked && !_sectionsToCopy.ContainsKey(sectionName))
                     {
-                        if (StaticData.ApperanceSections.ContainsKey(sectionName))
+                        if (StaticData.AppearanceSections.ContainsKey(sectionName))
                         {
-                            _sectionsToCopy.Add(sectionName, StaticData.ApperanceSections[sectionName]);
+                            _sectionsToCopy.Add(sectionName, StaticData.AppearanceSections[sectionName]);
                             Debug.WriteLine(string.Format("Added section {0} to copy list", sectionName));
                         }
                         else
                         {
-                            Debug.Fail(string.Format("The section ({0}) does not exist in the StaticData.ApperanceSections list D: !!!!!!", sectionName));
+                            Debug.Fail(string.Format("The section ({0}) does not exist in the StaticData.AppearanceSections list D: !!!!!!", sectionName));
                         }
                     }
                 }
                 else
                 {
-                    Debug.Fail(string.Format("Checkbox {0} was not prefixed with Cb_ but had the apperance handler assigned D:", cb.Name));
+                    Debug.Fail(string.Format("Checkbox {0} was not prefixed with Cb_ but had the appearance handler assigned D:", cb.Name));
                 }
             }
         }

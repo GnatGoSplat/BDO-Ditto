@@ -4,12 +4,13 @@ namespace BDO_Ditto
 {
     public static class StaticData
     {
-        public static readonly List<uint> SuportedVersions = new List<uint> { 17, 18, 19 }; // 11, 12 and 13 hex
+        public static readonly List<uint> SupportedVersions = new List<uint> { 17, 18, 19, 20 }; // 11, 12, 13, and 14 hex
 
         #region Class id hex values
         public static readonly Dictionary<ulong, string> ClassIdLookup = new Dictionary<ulong, string>
         {
                                                            // Offset starts at 44 hex 8 bytes long
+            { 3357742161082951297,      "Corsair"       }, // 2E9918B496B3A681      81 A6 B3 96 B4 18 99 2E
             { 1251758517271041305,      "Sorceress"     }, // 115F23BD46829519      19 95 82 46 BD 23 5F 11
             { 10777537339687380824,     "Valkyrie"      }, // 9591811BCD932758      58 27 93 CD 1B 81 91 95
             { 17145927421228022900,     "Ranger"        }, // EDF2922586ECFC74      74 FC EC 86 25 92 F2 ED
@@ -29,15 +30,35 @@ namespace BDO_Ditto
             { 9027954148991039522,      "Archer"        }, // 22F81F6377BC497D      7D 49 BC 77 63 1F F8 22
             { 1993106510572782253,      "Shai"          }, // 1BA8EFCFBA3582AD      AD 82 35 BA CF EF A8 1B
             { 172777620496739550,       "Guardian"      }, // 0265D45496D86CDE      DE 6C D8 96 54 D4 65 02
-            { 13074637124134913639,     "Hashashin"     }  // B572713127324667      67 46 32 27 31 71 72 B5
+            { 13074637124134913639,     "Hashashin"     }, // B572713127324667      67 46 32 27 31 71 72 B5
+
+            // Version 20                                     Offset starts at 4C hex 8 bytes long
+            { 7081595336976774109,      "Archer"        }, // 6246E170679033DD      DD 33 90 67 70 E1 46 62
+            { 8412734655905554310,      "Corsair"       }, // 74C00998D2DE5F86      86 5F DE D2 98 09 C0 74
+            { 9119805490502368545,      "Dark Knight"   }, // 7E900EC65A0CFD21      21 FD 0C 5A C6 0E 90 7E
+            { 357830937251315772,       "Drakania"      }, // 04F745577082803C      3C 80 82 70 57 45 F7 04
+            { 5290494074644712600,      "Kunoichi"      }, // 496B9C54A581CC98      98 CC 81 A5 54 9C 6B 49
+            { 12438890563136803868,     "Lahn"          }, // AC9FD11027BA541C      1C 54 BA 27 10 D1 9F AC
+            { 14040961963313825197,     "Maehwa"        }, // C2DB8483701785AD      AD 85 17 70 83 84 DB C2
+            { 6802254817898671361,      "Mystic"        }, // 5E6676B78C8A2D01      01 2D 8A 8C B7 76 66 5E
+            { 8013978285226004988,      "Nova"          }, // 6F375ECA609711FC      FC 11 97 60 CA 5E 37 6F
+            { 9216515557679440964,      "Ranger"        }, // 7FE7A4118A582444      44 24 58 8A 11 A4 E7 7F
+            { 617728548737276423,       "Shai"          }, // 08929CD79B1A5A07      07 5A 1A 9B D7 9C 92 08
+            { 18271757708760598198,     "Sorceress"     }, // FD9252D404AE46B6      B6 46 AE 04 D4 52 92 FD
+            { 13001645364074434640,     "Striker"       }, // B46F1F92AD42D050      50 D0 42 AD 92 1F 6F B4
+            { 14205010153774206682,     "Tamer"         }, // C522557936874EDA      DA 4E 87 36 79 55 22 C5
+            { 17328365105169856007,     "Witch"         }, // F07AB840E7EC7607      07 76 EC E7 40 B8 7A F0
+            { 18331335825172845920,     "Valkyrie"      }  // FE65FCCF35D1D560      60 D5 D1 35 CF FC 65 FE
+
         };
         #endregion
 
         public static BdoDataBlock GameVersion     = new BdoDataBlock(4, 12);
-        public static BdoDataBlock ClassId         = new BdoDataBlock(68, 8);
+        public static BdoDataBlock ClassIdOld      = new BdoDataBlock(68, 8);
+        public static BdoDataBlock ClassId         = new BdoDataBlock(0x4C, 8);
 
-        #region Offsets in the file for certain apperance data
-        public static readonly Dictionary<string, BdoDataBlock> ApperanceSections = new Dictionary<string, BdoDataBlock>
+        #region Offsets in the file for certain appearance data
+        public static readonly Dictionary<string, BdoDataBlock> AppearanceSections = new Dictionary<string, BdoDataBlock>
         {
             { "HairAndFace",        new BdoDataBlock(76,   8)      },
             { "HairColors",         new BdoDataBlock(92,   8)      },
