@@ -27,12 +27,16 @@ namespace BDO_Ditto
         private byte[] _sourceAppearanceData;
         private byte[] _targetAppearanceData;
 
+        private uint _sourceVersion;
+        private uint _targetVersion;
+
         public bool LoadSource(string path)
         {
             _sourceAppearancePath = path;
             byte[] data = LoadAppearance(_sourceAppearancePath);
             if (data != null)
             {
+                _sourceVersion = BitConverter.ToUInt32(data, 0);
                 _sourceAppearanceData = data;
                 return true;
             }
@@ -46,6 +50,7 @@ namespace BDO_Ditto
             byte[] data = LoadAppearance(_targetAppearancePath);
             if (data != null)
             {
+                _targetVersion = BitConverter.ToUInt32(data, 0);
                 _targetAppearanceData = data;
                 return true;
             }
@@ -53,29 +58,49 @@ namespace BDO_Ditto
             return false;
         }
 
-        public void CopySectionsToTarget(List<BdoDataBlock> setionsToCopy)
+        public void CopySectionsToTarget(List<string> sectionsToCopy)
         {
             if (_sourceAppearanceData != null && _targetAppearanceData != null)
             {
                 byte[] newTemplate = new byte[_targetAppearanceData.Length];
+                bool proceed = false;
                 _targetAppearanceData.CopyTo(newTemplate, 0);
 
-                foreach (var section in setionsToCopy)
+                foreach (var section in sectionsToCopy)
                 {
-                    Array.Copy(_sourceAppearanceData, section.Offset, newTemplate, section.Offset, section.Length);
+                    BdoDataBlock sourceBlock = (_sourceVersion <= 19) ? StaticData.AppearanceSectionsOld[section] : StaticData.AppearanceSections[section];
+                    BdoDataBlock targetBlock = (_targetVersion <= 19) ? StaticData.AppearanceSectionsOld[section] : StaticData.AppearanceSections[section];
+                    Debug.WriteLine("source start offset: " + sourceBlock.Offset);
+                    Debug.WriteLine("target start offset: " + targetBlock.Offset + " length: " + targetBlock.Length);
+
+                    Array.Copy(_sourceAppearanceData, sourceBlock.Offset, newTemplate, targetBlock.Offset, targetBlock.Length);
                 }
 
-                try {
-                    File.WriteAllBytes(_targetAppearancePath, newTemplate);
-                }
-                catch (Exception e) {
-                    MessageBox.Show(@"Error saving customisation file, sorry :<\n " + e, @"Error Saving");
-                }
-
-                var result = MessageBox.Show(@"Sections have been copied to target.   ᕕ( ՞ ᗜ ՞ )ᕗ\nCommit changes and reload?", @"Done", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
+                if ((_sourceVersion <= 19 && _targetVersion >= 20) || (_sourceVersion >= 20 && _targetVersion <= 19))
                 {
-                    LoadTarget(_targetAppearancePath);
+                    DialogResult versionMismatch = MessageBox.Show("Source and target versions are incompatible.\n" +
+                        "Target customization may crash the game if loaded.\n\n" +
+                        "Re-save " + ((_sourceVersion < _targetVersion) ? "source" : "target") + " customization in game to avoid this problem.\n\n" +
+                        "Continue anyway?", "Incompatible Versions", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    proceed = (versionMismatch == DialogResult.Yes);
+                } else
+                {
+                    proceed = true;
+                }
+                
+                if (proceed) { 
+                    try {
+                        File.WriteAllBytes(_targetAppearancePath, newTemplate);
+                    }
+                    catch (Exception e) {
+                        MessageBox.Show("Error saving customisation file, sorry :<\n " + e, "Error Saving");
+                    }
+
+                    var result = MessageBox.Show("Sections have been copied to target.   ᕕ( ՞ ᗜ ՞ )ᕗ\nCommit changes and reload?", "Done", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        LoadTarget(_targetAppearancePath);
+                    }
                 }
             }
         }
@@ -111,12 +136,7 @@ namespace BDO_Ditto
         {
             // Crude
             uint version = BitConverter.ToUInt32(data, 0);
-            ulong classId;
-            if (version < 20) {
-                classId = BitConverter.ToUInt64(data, StaticData.ClassIdOld.Offset);    // Use old classId
-            } else {
-                classId = BitConverter.ToUInt64(data, StaticData.ClassId.Offset);
-            }
+            ulong classId = (version <= 19) ? BitConverter.ToUInt64(data, StaticData.ClassIdOld.Offset) : BitConverter.ToUInt64(data, StaticData.ClassId.Offset);
             if (!StaticData.ClassIdLookup.TryGetValue(classId, out string className))
             {
                 className = "Unknown";
@@ -124,7 +144,7 @@ namespace BDO_Ditto
             }
             Debug.WriteLine("Class ID: {0}, Name: {1}", classId, className);
 
-            return className;
+            return className + " v" + version;
         }
 
         public string GetSourceClassStr()

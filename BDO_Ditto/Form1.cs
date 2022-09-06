@@ -10,7 +10,7 @@ namespace BDO_Ditto
     public partial class MainForm : Form
     {
         private readonly BdoAppearanceSwapper _appearanceSwapper = new BdoAppearanceSwapper();
-        private readonly Dictionary<string, BdoDataBlock> _sectionsToCopy = new Dictionary<string, BdoDataBlock>();
+        private readonly List<string> _sectionsToCopy = new List<string>();
 
         public MainForm()
         {
@@ -96,9 +96,9 @@ namespace BDO_Ditto
 
         private void Btt_CopySections_Click(object sender, EventArgs e)
         {
-            List<BdoDataBlock> setionsToCopy = new List<BdoDataBlock>(_sectionsToCopy.Values);
+            List<string> sectionsToCopy = new List<string>(_sectionsToCopy);
             PrintSectionsToCopy();
-            _appearanceSwapper.CopySectionsToTarget(setionsToCopy);
+            _appearanceSwapper.CopySectionsToTarget(sectionsToCopy);
         }
 
         // Global handler for selecting what sections to copy
@@ -112,22 +112,15 @@ namespace BDO_Ditto
                     string sectionName = cb.Name.Substring(3);
                     //Debug.WriteLine(string.Format("Checkbox {0} set to {1}. section name: {2}", cb.Name, cb.Checked, sectionName));
 
-                    if (cb.Checked == false && _sectionsToCopy.ContainsKey(sectionName))
+                    if (cb.Checked == false && _sectionsToCopy.Contains(sectionName))
                     {
                         _sectionsToCopy.Remove(sectionName);
                         Debug.WriteLine(string.Format("Removed section {0} from copy list", sectionName));
                     }
-                    else if (cb.Checked && !_sectionsToCopy.ContainsKey(sectionName))
+                    else if (cb.Checked && !_sectionsToCopy.Contains(sectionName))
                     {
-                        if (StaticData.AppearanceSections.ContainsKey(sectionName))
-                        {
-                            _sectionsToCopy.Add(sectionName, StaticData.AppearanceSections[sectionName]);
-                            Debug.WriteLine(string.Format("Added section {0} to copy list", sectionName));
-                        }
-                        else
-                        {
-                            Debug.Fail(string.Format("The section ({0}) does not exist in the StaticData.AppearanceSections list D: !!!!!!", sectionName));
-                        }
+                        _sectionsToCopy.Add(sectionName);
+                        Debug.WriteLine(string.Format("Added section {0} to copy list", sectionName));
                     }
                 }
                 else
@@ -142,11 +135,11 @@ namespace BDO_Ditto
         {
             Debug.WriteLine("Copying {0} sections: ", _sectionsToCopy.Count);
             Debug.WriteLine("-----------------------------------------------------------");
-            Debug.WriteLine("{0,-20} {1,-10} {2,-10}", "Section Name", "Offset", "Length");
+            Debug.WriteLine("{0,-20}", "Section Name");
             Debug.WriteLine("-----------------------------------------------------------");
-            foreach (KeyValuePair<string, BdoDataBlock> kvp in _sectionsToCopy)
+            foreach (string section in _sectionsToCopy)
             {
-                Debug.WriteLine("{0,-20} {1,-10} {2,-10}", kvp.Key, kvp.Value.Offset, kvp.Value.Length);
+                Debug.WriteLine("{0,-20} {1,-10} {2,-10}", section);
             }
             Debug.WriteLine("-----------------------------------------------------------");
         }
